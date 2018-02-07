@@ -243,10 +243,6 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 					//					PrintCHar(currentTank->body[3].m_x, currentTank->body[3].m_y - 1, g_nMap[currentTank->body[3].m_y - 1][currentTank->body[3].m_x].pic, g_nMap[currentTank->body[3].m_y - 1][currentTank->body[3].m_x].color);
 					break;
 				}
-
-
-
-
 				if (ptank->body[0].m_y > 1) {
 					ptank->m_y = ptank->m_y - 1;
 					for (int i = 0;i < 6;i++) {
@@ -272,19 +268,12 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 			break;
 		case 's':
 			if (ptank->m_direction == DOWN) {
-
-
 				//判断坦克是否和障碍物或者其他坦克相撞
 				while (NULL != tempTank) {
 					for (int i = 0;i < 6;i++) {
 						if (((tempTank->body[i].m_x == currentTank->body[0].m_x) && (tempTank->body[i].m_y == (currentTank->body[0].m_y + 1))) || ((tempTank->body[i].m_x == currentTank->body[2].m_x) && (tempTank->body[i].m_y == (currentTank->body[2].m_y + 1))) || ((tempTank->body[i].m_x == currentTank->body[3].m_x) && (tempTank->body[i].m_y == (currentTank->body[3].m_y + 1)))) {
 							isCollide = 1;
 						}
-						//			for (int j = 0;j < 6;j++) {
-						//				if ((tempTank->body[i].m_x == currentTank->body[j].m_x) && (tempTank->body[i].m_y == (currentTank->body[j].m_y + 1))) {
-						//					isCollide = 1;
-						//				}
-						//			}
 
 					}
 					tempTank = tempTank->Next;
@@ -298,7 +287,6 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 					isCollide = 1;
 				if (isCollide == 1) {
 					printTank(currentTank);
-					//				PrintCHar(currentTank->body[3].m_x, currentTank->body[3].m_y + 1, g_nMap[currentTank->body[3].m_y - 1][currentTank->body[3].m_x].pic, g_nMap[currentTank->body[3].m_y - 1][currentTank->body[3].m_x].color);
 					break;
 				}
 
@@ -331,20 +319,12 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 		case 'a':
 			if (ptank->m_direction == LEFT) {
 
-
 				//判断坦克是否和障碍物或者其他坦克相撞
 				while (NULL != tempTank) {
 					for (int i = 0;i < 6;i++) {
 						if (((tempTank->body[i].m_x == (currentTank->body[0].m_x - 1)) && (tempTank->body[i].m_y == (currentTank->body[0].m_y))) || ((tempTank->body[i].m_x == (currentTank->body[2].m_x - 1)) && (tempTank->body[i].m_y == (currentTank->body[2].m_y))) || ((tempTank->body[i].m_x == (currentTank->body[3].m_x - 1)) && (tempTank->body[i].m_y == (currentTank->body[3].m_y)))) {
 							isCollide = 1;
 						}
-						//				for (int j = 0;j < 6;j++) {
-						//					if ((tempTank->body[i].m_x == currentTank->body[j].m_x-1) && (tempTank->body[i].m_y == (currentTank->body[j].m_y))) {
-						//						isCollide = 1;
-						//					}
-						//				}
-
-
 					}
 					tempTank = tempTank->Next;
 				}
@@ -396,13 +376,6 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 						if (((tempTank->body[i].m_x == (currentTank->body[0].m_x + 1)) && (tempTank->body[i].m_y == (currentTank->body[0].m_y))) || ((tempTank->body[i].m_x == (currentTank->body[2].m_x + 1)) && (tempTank->body[i].m_y == (currentTank->body[2].m_y))) || ((tempTank->body[i].m_x == (currentTank->body[3].m_x + 1)) && (tempTank->body[i].m_y == (currentTank->body[3].m_y)))) {
 							isCollide = 1;
 						}
-
-						//				for (int j = 0;j < 6;j++) {
-						//					if ((tempTank->body[i].m_x == currentTank->body[j].m_x+1) && (tempTank->body[i].m_y == (currentTank->body[j].m_y))) {
-						//						isCollide = 1;
-						//					}
-						//				}
-
 					}
 					tempTank = tempTank->Next;
 				}
@@ -451,10 +424,8 @@ void move(Tank* ptank, char keyPress, allTank* aTank) {
 
 
 void setBullet(Tank* ptank, allBullet* aBullet) {
-	//if (NULL == ptank)return;
 	if (ptank==NULL||ptank->visable == 0)return;
 	Bullet* p = (Bullet*)malloc(sizeof(Bullet));
-	//	if (NULL == p)return;
 	memset(p, 0, sizeof(Bullet));
 	Bullet* temp = aBullet->bul;
 		while (NULL != temp->Next) {
@@ -541,6 +512,15 @@ bool isBullet(Bullet** bullet, allTank* aTank, allBullet* aBullet, int value) {
 		PrintCHar(p->m_x + x, p->m_y + y, g_nMap[p->m_y + y][p->m_x + x].pic, g_nMap[p->m_y + y][p->m_x + x].color);
 	}
 
+	if (g_nMap[p->m_y + y][p->m_x + x].m_information == 4)
+	{
+		g_nMap[p->m_y + y][p->m_x + x].m_information = 0;
+		g_nMap[p->m_y + y][p->m_x + x].color = (e_黑色, e_黑色);
+		strcpy_s(g_nMap[p->m_y + y][p->m_x + x].pic, "  ");
+		PrintCHar(p->m_x + x, p->m_y + y, g_nMap[p->m_y + y][p->m_x + x].pic, g_nMap[p->m_y + y][p->m_x + x].color);
+		aTank->bul->Next->m_blood = -1;
+	}
+
 	if ((0 != g_nMap[p->m_x + x][p->m_y + y].m_information) || (temp == 1)||(temp2==1)) {
 			while (q->Next != p) {
 				q = q->Next;
@@ -583,7 +563,6 @@ void moveBullet(allBullet* aBullet, allTank* aTank) {
 		}
 		if (p == NULL)break;
 		p = p->Next;
-		//	Sleep(5);
 	}
 	printBullet(aBullet);
 }
@@ -621,8 +600,10 @@ int run(allTank* aTank, allBullet* aBullet) {
 	while (player->m_faction != 2) {
 		player = player->Next;
 	}
+
 	srand(time(NULL));
 	bool pauseFlag = true;//0为暂停
+	bool stopMove = true;
 	char press = 0;
 	char dir[4] = { 'w','s', 'd','a' };
 	clock_t start, finish;//敌军坦克
@@ -631,10 +612,13 @@ int run(allTank* aTank, allBullet* aBullet) {
 	start = clock();
 	start1 = clock();
 	start2 = clock();
-	while (press != 0X1b && pauseFlag) {
-//		eraseBullet(aBullet, aTank);
-//		printBullet(aBullet);
+	while (press != 0X1b && stopMove) {
+		printAllpTank(aTank);
 		Tank* temp = aTank->bul->Next;
+		if (temp->m_blood == -1) {
+			fina = 6;
+			break;
+		}
 		if (temp->m_faction != 2) {
 			fina = 3;
 			break;
@@ -659,6 +643,10 @@ int run(allTank* aTank, allBullet* aBullet) {
 			}
 			move(player, press, aTank);
 		}
+		if (pauseFlag) {
+			continue;
+		}
+
 		finish = clock();
 		finish1 = clock();
 		finish2 = clock();
@@ -676,7 +664,7 @@ int run(allTank* aTank, allBullet* aBullet) {
 				a = rand() % 4;
 				b = rand() % 2;
 				if (p != NULL)
-				//	if((a = rand() % 8)%8==0)
+				if((a = rand() % 8)%4==0)
 				setBullet(p, aBullet);
 				printBullet(aBullet);
 				printTank(p);
@@ -694,4 +682,12 @@ int run(allTank* aTank, allBullet* aBullet) {
 		}
 	}
 	return fina;
+}
+void pGameIntroduce() {
+	PrintCHar(61, 1, "进入游戏按下空格开始游戏", 7);
+	PrintCHar(61, 2, "控制方向键为wasd", 7);
+	PrintCHar(61, 3, "q为发射子弹", 7);
+	PrintCHar(61, 4, "白墙和障碍物不可摧毁", 7);
+	PrintCHar(61, 5, "红墙和障碍物可摧毁", 7);
+	PrintCHar(61, 6, "空格为暂停", 7);
 }

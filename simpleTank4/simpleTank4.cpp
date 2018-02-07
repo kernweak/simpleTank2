@@ -11,10 +11,20 @@
 
 int main()
 {
+	setsometing();
 	ShowCursor();
 	SetWindowSize("坦克大战", 150, 50);
+	char f5[30] = "欢迎进入坦克大战\n";
+	char f8[30] = "该功能尚未开发完毕\n";
+	PrintCHar(24, 20, f5, 7);
+	char f6[30] = "作者：杨睿琦\n";
+	PrintCHar(30, 22, f6, 7);
+	char f7[30] = "来源：15PB\n";
+	PrintCHar(30, 23, f7, 7);
+	getchar();
+	system("cls");
 	int fina = 0;
-
+	int temp = 0;
 	while (1) {
 		int nNum = -1;
 		system("cls");
@@ -34,19 +44,30 @@ int main()
 			initMap();
 			DrawMap();
 			MessageLoop();
+			temp = 1;
 			break;
 		case 2:
 			system("cls");
+			if(temp==0)initMap();
+			DrawMap();
 			printMap();
+			pGameIntroduce();
 			allTank *aTank = NULL;
 			allBullet* aBullet = NULL;
 			initTank(&aTank);
-			initPlayerTank(aTank, 23, 47, 6, 2, 2);
+			initPlayerTank(aTank, 18, 47, 6, 2, 2);
 			initCompuTank(aTank, 1, 5, 4);
 			initBullet(&aBullet);
 			printAllpTank(aTank);
 			fina = run(aTank, aBullet);
 			system("cls");
+			if (fina == 6)
+			{
+				char f[30] = "失败，你老家炸了\n";
+				PrintCHar(24, 20, f, 7);
+				getchar();
+				getchar();
+			}
 			if (fina == 5)
 			{
 				char f[30] = "玩家胜利\n";

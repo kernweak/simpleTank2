@@ -53,3 +53,5 @@ void MouseEventProc(MOUSE_EVENT_RECORD mer);
 int MessageLoop();
 void editMap();
 void printMap();
+void pirntNest();
+void setsometing();

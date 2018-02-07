@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include<string.h>
 
-Map g_nMap[50][60];//1为本身的墙，2为添加的不动墙，3为可打掉的墙
+Map g_nMap[50][60];//1为本身的墙，2为添加的不动墙，3为可打掉的墙,4为基地
 				   //= {0,0,0,"  ",COLOR(e_黑色, e_黑色) };
 void initMap() {
 	for (int i = 0;i < 50;i++) {
@@ -75,6 +75,7 @@ bool SetWindowSize(char* pszWindowTitle, int nX, int nY) {
 
 
 void DrawMap() {
+	pirntNest();
 	for (int i = 0;i < 60;i++) {
 		g_nMap[0][i].m_ix = i;
 		g_nMap[0][i].m_iy = 0;
@@ -99,14 +100,15 @@ void DrawMap() {
 		strcpy_s(g_nMap[i][59].pic, "█");
 		g_nMap[i][59].color = COLOR(e_白色, e_白色);
 	}
-	for (int i = 0;i < 50;i++) {
+	/*for (int i = 0;i < 50;i++) {
 		for (int j = 0;j < 60;j++) {
 			if (g_nMap[i][j].m_information == 1) {
 				PrintCHar((g_nMap[i][j].m_ix), g_nMap[i][j].m_iy, \
 					g_nMap[i][j].pic, g_nMap[i][j].color);
 			}
 		}
-	}
+	}*/
+	printMap();
 }
 
 void printMap() {
@@ -169,7 +171,7 @@ void MouseEventProc(MOUSE_EVENT_RECORD mer) {
 int MessageLoop() {
 	PrintCHar(61, 2, "1左键是添加不可摧毁的障碍物，", 7);
 	PrintCHar(61, 3, "2右键添加可摧毁的障碍物", 7);
-	PrintCHar(61, 4, "3按下q键退出编辑", 7);
+	PrintCHar(61, 4, "3按下z键退出编辑", 7);
 	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
 	INPUT_RECORD stcRecord = { 0 };
 	DWORD dwRead;
@@ -195,4 +197,44 @@ int MessageLoop() {
 void editMap() {
 	DrawMap();
 
+}
+
+void pirntNest() {
+	for (int i = 42;i <= 48;i++) {
+		g_nMap[i][20].m_information = 3;
+		g_nMap[i][30].m_information = 3;
+		strcpy_s(g_nMap[i][20].pic, "▓");
+		strcpy_s(g_nMap[i][30].pic, "▓");
+		g_nMap[i][30].color = 4;
+		g_nMap[i][20].color = 4;
+	}
+	for (int i = 42;i <= 48;i++) {
+		g_nMap[i][21].m_information = 4;
+		g_nMap[i][29].m_information = 4;
+		strcpy_s(g_nMap[i][21].pic, "★");
+		strcpy_s(g_nMap[i][29].pic, "★");
+		g_nMap[i][29].color = 9;
+		g_nMap[i][21].color = 9;
+	}
+	for (int i = 21;i < 30;i++) {
+		g_nMap[42][i].m_information = 3;
+		g_nMap[43][i].m_information = 4;
+		strcpy_s(g_nMap[42][i].pic, "▓");
+		strcpy_s(g_nMap[43][i].pic, "★");
+		g_nMap[42][i].color = 4;
+		g_nMap[43][i].color = 9;
+	}
+
+
+	for (int i = 20;i <= 30;i++) {
+		g_nMap[35][i].m_information = 2;
+		strcpy_s(g_nMap[35][i].pic, "█");
+		g_nMap[35][i].color = 7;
+	}
+}
+
+void setsometing() {
+	keybd_event(VK_SHIFT, 0, 0, 0);
+	Sleep(100);
+	keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
 }

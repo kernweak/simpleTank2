@@ -62,3 +62,4 @@ void moveBullet(allBullet* aBullet, allTank* aTank);
 int run(allTank* aTank, allBullet* aBullet);
 void deleteTank(allTank* aTank);
 bool moveWall(int x, int y);//判断坦克是否撞墙
+void pGameIntroduce();//打印游戏介绍
